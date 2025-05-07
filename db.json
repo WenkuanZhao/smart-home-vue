@@ -1,0 +1,130 @@
+{
+  "devices": [
+    {
+      "id": "1",
+      "name": "客厅主灯",
+      "type": "light",
+      "room": "客厅",
+      "status": true,
+      "brightness": 80,
+      "color": "#FFFFFF"
+    },
+    {
+      "id": "2",
+      "name": "卧室空调",
+      "type": "ac",
+      "room": "卧室",
+      "status": true,
+      "temperature": 25,
+      "mode": "cool"
+    },
+    {
+      "id": "3",
+      "name": "厨房智能插座",
+      "type": "outlet",
+      "room": "厨房",
+      "status": true,
+      "power": 45
+    },
+    {
+      "id": "4",
+      "name": "卧室窗帘",
+      "type": "curtain",
+      "room": "卧室",
+      "status": true,
+      "openPercentage": 0
+    },
+    {
+      "id": "5",
+      "name": "客厅电视",
+      "type": "tv",
+      "room": "客厅",
+      "status": false,
+      "volume": 20,
+      "channel": "CCTV-1"
+    }
+  ],
+  "rooms": [
+    {
+      "id": "1",
+      "name": "客厅"
+    },
+    {
+      "id": "2",
+      "name": "卧室"
+    },
+    {
+      "id": "3",
+      "name": "厨房"
+    },
+    {
+      "id": "4",
+      "name": "浴室"
+    }
+  ],
+  "scenes": [
+    {
+      "id": "1",
+      "name": "回家模式",
+      "description": "打开客厅灯和空调",
+      "devices": [
+        {
+          "id": 1,
+          "status": true,
+          "brightness": 70
+        },
+        {
+          "id": 2,
+          "status": true,
+          "temperature": 25
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "name": "睡眠模式",
+      "description": "关闭主要设备，拉上窗帘",
+      "devices": [
+        {
+          "id": 1,
+          "status": false
+        },
+        {
+          "id": 2,
+          "status": true,
+          "temperature": 23
+        },
+        {
+          "id": 4,
+          "status": false,
+          "openPercentage": 0
+        },
+        {
+          "id": 5,
+          "status": false
+        }
+      ]
+    }
+  ],
+  "users": [
+    {
+      "id": "1",
+      "name": "管理员",
+      "role": "admin",
+      "permissions": [
+        "read",
+        "write",
+        "manage"
+      ]
+    },
+    {
+      "id": "2",
+      "name": "家庭成员",
+      "role": "member",
+      "permissions": [
+        "read",
+        "write"
+      ]
+    }
+  ]
+}
