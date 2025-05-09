@@ -8,7 +8,8 @@ export default createStore({
     scenes: [],
     selectedRoom: 'all',
     loading: false,
-    error: null
+    error: null,
+    user: null
   },
   mutations: {
     SET_DEVICES(state, devices) {
@@ -36,6 +37,12 @@ export default createStore({
     },
     SET_ERROR(state, error) {
       state.error = error
+    },
+    SET_USER(state, user) {
+      state.user = user
+    },
+    CLEAR_USER(state) {
+      state.user = null
     }
   },
   actions: {
@@ -102,6 +109,25 @@ export default createStore({
       } finally {
         commit('SET_LOADING', false)
       }
+    },
+    async login({ commit }, credentials) {
+      try {
+        const response = await api.getUsers({
+            name: credentials.username,
+            password: credentials.password
+        })
+        if (response.data.length > 0) {
+          commit('SET_USER', response.data[0])
+          return true
+        }
+        return false
+      } catch (error) {
+        console.error('登录失败:', error)
+        return false
+      }
+    },
+    logout({ commit }) {
+      commit('CLEAR_USER')
     }
   },
   getters: {
@@ -115,6 +141,9 @@ export default createStore({
     },
     getDeviceById: (state) => (id) => {
       return state.devices.find((device) => device.id === id)
-    }
+    },
+    isAuthenticated: state => !!state.user,
+    currentUser: state => state.user
   }
 })
+

@@ -2,6 +2,13 @@
   <div class="home-page">
     <header class="header">
       <h1 class="header__title">智能家居控制中心</h1>
+      <div class="auth-info">
+        <template v-if="$store.getters.isAuthenticated">
+          <span class="user-name">欢迎，{{ $store.getters.currentUser.name }}</span>
+          <button @click="handleLogout" class="logout-btn">注销</button>
+        </template>
+        <router-link v-else to="/login" class="login-link">登录</router-link>
+      </div>
     </header>
 
     <div class="filter-section">
@@ -52,6 +59,7 @@
 <script>
 import { computed, onMounted } from 'vue'
 import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
 import DeviceCard from '@/components/devices/DeviceCard.vue'
 
 export default {
@@ -61,7 +69,7 @@ export default {
   },
   setup() {
     const store = useStore()
-
+    const router = useRouter()
     // 获取状态
     const devices = computed(() => store.state.devices)
     const rooms = computed(() => store.state.rooms)
@@ -97,6 +105,11 @@ export default {
       store.dispatch('activateScene', sceneId)
     }
 
+    const handleLogout = () => {
+      store.dispatch('logout') // 调用 Vuex 的 logout action
+      router.push('/login') // 跳转到登录页
+    }
+
     return {
       devices,
       rooms,
@@ -106,7 +119,8 @@ export default {
       error,
       filteredDevices,
       setSelectedRoom,
-      activateScene
+      activateScene,
+      handleLogout
     }
   }
 }
@@ -124,10 +138,49 @@ export default {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 30px;
+  position: relative;
 
   &__title {
     color: #333;
     margin: 0;
+  }
+}
+
+.auth-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+
+  .user-name {
+    font-weight: 500;
+    color: #666;
+  }
+
+  .logout-btn {
+    padding: 6px 12px;
+    background: #ff4444;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.2s;
+
+    &:hover {
+      background: #cc0000;
+    }
+  }
+
+  .login-link {
+    color: #42b983;
+    text-decoration: none;
+    font-weight: 600;
+    padding: 8px 16px;
+    border: 2px solid #42b983;
+    border-radius: 4px;
+
+    &:hover {
+      background: #f0faf5;
+    }
   }
 }
 

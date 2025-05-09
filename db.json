@@ -6,7 +6,7 @@
       "type": "light",
       "room": "客厅",
       "status": true,
-      "brightness": 80,
+      "brightness": 70,
       "color": "#FFFFFF"
     },
     {
@@ -31,7 +31,7 @@
       "name": "卧室窗帘",
       "type": "curtain",
       "room": "卧室",
-      "status": true,
+      "status": false,
       "openPercentage": 0
     },
     {
@@ -109,7 +109,8 @@
   "users": [
     {
       "id": "1",
-      "name": "管理员",
+      "name": "admin",
+      "password": "admin123",
       "role": "admin",
       "permissions": [
         "read",
@@ -119,7 +120,8 @@
     },
     {
       "id": "2",
-      "name": "家庭成员",
+      "name": "member",
+      "password": "member123",
       "role": "member",
       "permissions": [
         "read",
